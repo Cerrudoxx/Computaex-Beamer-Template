@@ -3,7 +3,7 @@
 Esta es una plantilla de presentaciones en LaTeX (Beamer) para la **Fundación COMPUTAEX**. 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
 * **Formato Panorámico:** Configurada por defecto en **16:9**, puede cambiarse a la relación de aspecto que se desee.
 * **Colores:** Uso automatizado del verde COMPUTAEX (`#4FA392`) y paleta de colores coherente.
@@ -16,7 +16,7 @@ Esta es una plantilla de presentaciones en LaTeX (Beamer) para la **Fundación C
 
 ---
 
-## ��️ Cómo utilizar esta plantilla
+## Cómo utilizar esta plantilla
 
 Puedes empezar a trabajar con este recurso de dos maneras:
 
@@ -28,9 +28,9 @@ Puedes empezar a trabajar con este recurso de dos maneras:
 ### Opción 2: Git / Local (Usuarios avanzados)
 1. Clona este repositorio en tu equipo:
    ```bash
-   git clone [https://github.com/tu-usuario/computaex-beamer-template.git](https://github.com/tu-usuario/computaex-beamer-template.git)
+   git clone https://github.com/Cerrudoxx/Computaex-Beamer-Template.git
 
-```
+   ```
 
 2. Asegúrate de tener una distribución de LaTeX instalada.
 3. Compila usando **pdfLaTeX**.
@@ -54,7 +54,6 @@ Para que el índice se genere y actualice solo, utiliza el comando `\section` an
 
 ```latex
 \section{Análisis de Resultados}
-
 ```
 
 
