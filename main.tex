@@ -1,0 +1,191 @@
+% =============================================================================
+% PLANTILLA CORPORATIVA - COMPUTAEX
+% Archivo principal: main.tex
+% =============================================================================
+\documentclass[aspectratio=169]{beamer} % Permite cambiar la relación de aspecto
+\usepackage{computaex_theme} 
+
+% --- DATOS DE LA PRESENTACIÓN ---
+\title[Título Corto]{Título Completo de la Presentación}
+\subtitle{Subtítulo}
+\author[Nombre Corto]{Nombre Completo Autor}
+\institute[COMPUTAEX]{Fundación COMPUTAEX}
+\date{\today}
+
+\begin{document}
+
+% --- PORTADA (Sin logo en la esquina para evitar duplicidad) ---
+{
+\setbeamertemplate{logo}{}
+\begin{frame}
+\titlepage
+\end{frame}
+}
+
+% --- ÍNDICE ---
+\begin{frame}
+\frametitle{Contenido de la Sesión}
+\tableofcontents % Genera el índice automáticamente basado en las \section
+\end{frame}
+
+% =============================================================================
+\section{Introducción y Objetivos}
+% =============================================================================
+
+\begin{frame}
+\frametitle{Diapositiva de Texto y Listas}
+Este es un ejemplo de cómo organizar puntos clave en una diapositiva:
+\begin{itemize}
+    \item \textbf{Punto importante:} Descripción breve del concepto.
+    \item \textbf{Punto secundario:} Detalle adicional que ayuda a la comprensión.
+    \begin{itemize}
+        \item Subpunto de nivel 2.
+        \item Otro subpunto.
+    \end{itemize}
+    \item \textbf{Conclusión parcial:} Lorem ipsum.
+\end{itemize}
+\end{frame}
+
+% =============================================================================
+\section{Análisis de Datos y Gráficos}
+% =============================================================================
+
+\begin{frame}
+\frametitle{Uso de Bloques y Columnas}
+Dividir la pantalla para comparar información o añadir una imagen lateral.
+\vspace{0.3cm}
+
+\begin{columns}[T] % T para alinear el texto arriba
+    \begin{column}{0.45\textwidth}
+        \begin{block}{Resaltado A}
+            Contenido destacado.
+        \end{block}
+        
+        \begin{exampleblock}{Caso de Éxito}
+            Ejemplo práctico de aplicación del concepto.
+        \end{exampleblock}
+    \end{column}
+    
+    \begin{column}{0.45\textwidth}
+        \begin{alertblock}{Advertencia o Límite}
+            Información crítica o restricciones técnicas.
+        \end{alertblock}
+        \textit{Nota: Puedes insertar una imagen aquí con \texttt{\textbackslash includegraphics}.}
+    \end{column}
+\end{columns}
+\end{frame}
+
+% ==========================================
+\section{Presentación de Datos}
+% ==========================================
+
+\begin{frame}
+\frametitle{Tablas Comparativas}
+Para presentar datos técnicos, se recomienda el uso del paquete \texttt{booktabs} para evitar líneas verticales innecesarias y mejorar la lectura:
+
+\vspace{0.3cm}
+\begin{table}
+\centering
+\begin{tabular}{lrc}
+\toprule
+\textbf{Algoritmo} & \textbf{Consultas (n=1)} & \textbf{Complejidad} \\
+\midrule
+Clásico Determínico & 2 & $O(n)$ \\
+Clásico Probabilista & 1 & $O(1)$ \\
+\textbf{Cuántico (Deutsch)} & \textbf{1} & \textbf{$O(1)$} \\
+\bottomrule
+\end{tabular}
+\caption{Comparativa de eficiencia en la resolución del problema.}
+\end{table}
+\end{frame}
+
+% =============================================================================
+\section{Ecuaciones y Código}
+% =============================================================================
+
+\begin{frame}
+\frametitle{Matemáticas y Entornos Científicos}
+Para fórmulas complejas o definiciones técnicas, usamos el modo matemático:
+
+\vspace{0.2cm}
+\begin{equation}
+    E = mc^2 \quad \longrightarrow \quad |\psi\rangle = \alpha|0\rangle + \beta|1\rangle
+\end{equation}
+
+\vspace{0.4cm}
+También puedes usar el entorno de descripción:
+\begin{description}
+    \item[Variable $x$:] Representa el valor de entrada del sensor.
+    \item[Variable $y$:] Representa el flujo de datos procesado.
+\end{description}
+\end{frame}
+
+% ==========================================
+\section{Ejemplo Circuito Cuántico}
+% ==========================================
+
+\begin{frame}[fragile] % IMPORTANTE: [fragile] es obligatorio para usar quantikz en Beamer
+\frametitle{Creación de Entrelazamiento: El Estado de Bell}
+Para demostrar las capacidades gráficas de la plantilla, representamos el circuito de Bell:
+
+\vspace{0.5cm}
+\begin{center}
+    \begin{quantikz}
+        \lstick{$\ket{0}$} & \gate{H} & \ctrl{1} & \qw & \meter{} \\
+        \lstick{$\ket{0}$} & \qw      & \targ{}  & \qw & \meter{}
+    \end{quantikz}
+\end{center}
+
+\end{frame}
+
+% ==========================================
+\section{Cierre}
+% ==========================================
+
+\begin{frame}
+\frametitle{Conclusiones y Siguientes Pasos}
+Resumen final de la intervención:
+\begin{enumerate}
+    \item Primero, hemos analizado el estado actual del proyecto.
+    \item Segundo, se han propuesto mejoras técnicas.
+    \item Por último, establecemos el calendario de ejecución.
+\end{enumerate}
+\end{frame}
+
+% ==========================================
+\section{Bibliografía}
+% ==========================================
+
+\begin{frame}[allowframebreaks] % 'allowframebreaks' por si la lista es muy larga
+\frametitle{Fuentes y Referencias}
+\begin{thebibliography}{9}
+    \setbeamercolor{bibliography item}{fg=MiColor}
+    \setbeamercolor{bibliography entry author}{fg=black}
+
+    \bibitem{nielsen_chuang}
+    M. Nielsen \& I. Chuang.
+    \textit{Quantum Computation and Quantum Information}.
+    Cambridge University Press, 2010.
+
+    \bibitem{computaex_rep}
+    Don Pepito.
+    \textit{Manual de ejemplos inventados}.
+    Empresa ficticia, 2024.
+\end{thebibliography}
+\end{frame}
+
+% --- DIAPOSITIVA FINAL ---
+\begin{frame}
+\begin{center}
+    \Huge \textcolor{MiColor}{\textbf{Gracias por su atención}}
+    
+    \vspace{1cm}
+    \large ¿Tienen alguna pregunta?
+    
+    \vspace{1.5cm}
+    \small \textbf{Contacto:} \texttt{usuario@computaex.es} \\
+    \textit{Fundación COMPUTAEX}
+\end{center}
+\end{frame}
+
+\end{document}

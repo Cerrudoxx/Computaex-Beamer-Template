@@ -1,0 +1,32 @@
+% computaex_theme.sty
+\ProvidesPackage{computaex_theme}
+
+\usepackage[utf8]{inputenc}
+\usepackage{braket} 
+\usepackage[spanish]{babel}
+\usepackage{graphicx} 
+\usepackage{quantikz} 
+\usepackage{booktabs}
+
+% Colores Corporativos
+\definecolor{MiColor}{HTML}{4FA392}
+\usetheme{Madrid}
+
+\setbeamercolor{structure}{fg=MiColor}
+\setbeamercolor{palette primary}{bg=MiColor!30!white, fg=black}   
+\setbeamercolor{palette secondary}{bg=MiColor, fg=white}          
+\setbeamercolor{palette tertiary}{bg=MiColor!80!black, fg=white}  
+\setbeamercolor{titlelike}{bg=MiColor, fg=white}
+\setbeamercolor{frametitle}{bg=MiColor!90!black, fg=white} 
+
+% Limpiar interfaz
+\setbeamertemplate{navigation symbols}{}
+
+% Configuración de Logos
+\addtobeamertemplate{title page}{
+  \centering
+  \includegraphics[width=6cm]{logos/COMPUTAEX_transparente-300x114.png}\par
+  \vspace{0.5cm} 
+}{}
+
+\logo{\includegraphics[height=0.7cm]{logos/COMPUTAEX_nuevo-300x75.png}}
