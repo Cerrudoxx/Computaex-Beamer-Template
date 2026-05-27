@@ -21,7 +21,7 @@ Esta es una plantilla de presentaciones en LaTeX (Beamer) para la **Fundación C
 Puedes empezar a trabajar con este recurso de dos maneras:
 
 ### Opción 1: Overleaf (Uso rápido)
-1. Accede al **Proyecto Maestro** mediante el enlace de solo lectura: `https://www.overleaf.com/read/mfwmmxxhmnwm#b2a655`
+1. Accede al **[Proyecto Maestro de Overleaf](https://www.overleaf.com/read/mfwmmxxhmnwm#b2a655)**
 2. En el panel superior izquierdo, ve a **File** > **Make a Copy**.
 3. Dale un nombre a tu presentación y listo. Ya tienes una copia privada para editar.
 
