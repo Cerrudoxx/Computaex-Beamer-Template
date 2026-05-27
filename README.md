@@ -1,77 +1,57 @@
 # Plantilla Beamer - Fundación COMPUTAEX
 
-Esta es una plantilla de presentaciones en LaTeX (Beamer) para la **Fundación COMPUTAEX**. 
----
+Plantilla de presentaciones LaTeX (Beamer) para la Fundación COMPUTAEX.
 
-## Características Principales
+## Características
 
-* **Formato Panorámico:** Configurada por defecto en **16:9**, puede cambiarse a la relación de aspecto que se desee.
-* **Colores:** Uso automatizado del verde COMPUTAEX (`#4FA392`) y paleta de colores coherente.
-* **Logotipos** Logo central en la portada y logo reducido automático en la esquina inferior derecha para el resto de diapositivas.
+* **Formato Panorámico:** Configuración base 16:9, modificable mediante los parámetros de clase en `main.tex`.
+* **Identidad Visual:** Integración del color corporativo COMPUTAEX (`#4FA392`) y paleta derivada.
+* **Logotipos:** Posicionamiento central en la portada y reducción automática en el cuadrante inferior derecho para las diapositivas de contenido.
 * **Paquetes Científicos:** Soporte nativo para:
     * Circuitos cuánticos (`quantikz`).
-    * Notación de Dirac/Estados cuánticos (`braket`).
-    * Tablas científicas (`booktabs`).
-* **Navegación:** Eliminación de los iconos de navegación de Beamer.
+    * Notación de Dirac y estados cuánticos (`braket`).
+    * Tablas científicas estructuradas (`booktabs`).
+* **Navegación:** Supresión de los controles de navegación nativos de Beamer.
 
----
+## Instrucciones de Uso
 
-## Cómo utilizar esta plantilla
+### Opción 1: Overleaf (Portal Institucional)
+1. Acceder al proyecto base en Overleaf mediante el enlace interno de la Fundación.
+2. Ejecutar la acción **Menu > Copy Project** para generar una instancia privada y editable.
 
-Puedes empezar a trabajar con este recurso de dos maneras:
-
-### Opción 1: Overleaf (Uso rápido)
-1. Accede al **[Proyecto Maestro de Overleaf](https://www.overleaf.com/read/mfwmmxxhmnwm#b2a655)**
-2. En el panel superior izquierdo, ve a **File** > **Make a Copy**.
-3. Dale un nombre a tu presentación y listo. Ya tienes una copia privada para editar.
-
-### Opción 2: Git / Local (Usuarios avanzados)
-1. Clona este repositorio en tu equipo:
+### Opción 2: Compilación Local
+1. Clonar el repositorio en el directorio local:
    ```bash
-   git clone https://github.com/Cerrudoxx/Computaex-Beamer-Template.git
-
+   git clone [https://github.com/Cerrudoxx/Computaex-Beamer-Template.git](https://github.com/Cerrudoxx/Computaex-Beamer-Template.git)
    ```
+2. Verificar la disponibilidad de una distribución LaTeX funcional y de los paquetes requeridos (`quantikz`, `braket`, `booktabs`, `xcolor`).
+3. Compilar el documento `main.tex` utilizando `pdflatex`.
 
-2. Asegúrate de tener una distribución de LaTeX instalada.
-3. Compila usando **pdfLaTeX**.
+## Estructura del Repositorio
 
----
+* `main.tex`: Documento principal. Contiene la estructura y los datos de las diapositivas.
+* `computaex_theme.sty`: Archivo de estilo. Define directivas de color, tipografía y posicionamiento de elementos visuales.
+* `logos/`: Directorio de recursos gráficos oficiales.
 
-## �� Estructura del Proyecto
+## Guía de Formato
 
-* `main.tex`: **Archivo de trabajo.** Contenido de las diapositivas.
-* `computaex_theme.sty`: **Motor visual.** Contiene la configuración de colores, fuentes y posición de logos. 
-* `logos/`: Carpeta con los archivos gráficos oficiales.
-
-
----
-
-## �� Guía Rápida de Estilos
-
-### Crear Secciones e Índice
-
-Para que el índice se genere y actualice solo, utiliza el comando `\section` antes de tus diapositivas:
-
+### Secciones e Índice
+La generación del índice es automática en base a las declaraciones de sección:
 ```latex
-\section{Análisis de Resultados}
+\section{Título de la Sección}
 ```
 
-
-### Circuitos Cuánticos
-
-Puedes insertar diagramas de circuitos directamente:
-
+### Entornos Cuánticos
+Inserción de circuitos mediante el entorno preconfigurado:
 ```latex
 \begin{quantikz}
 \lstick{$\ket{0}$} & \gate{H} & \gate{X} & \meter{}
 \end{quantikz}
-
 ```
 
----
+## Mantenimiento
+La gestión de incidencias técnicas y las propuestas de modificación estructural se tramitan a través del sistema de Issues y Pull Requests del repositorio.
 
-
-Esta plantilla se actualiza periódicamente. Si deseas proponer una mejora visual o has detectado un error:
-
-1. Abre un **Issue** explicando el cambio.
-2. Realiza un **Pull Request** si tienes una sugerencia de cambio.
+## Licencia y Derechos de Uso
+El código fuente y de estilo LaTeX (`.tex`, `.sty`) se distribuye bajo la Licencia MIT.
+Los recursos gráficos alojados en el directorio `logos/` y la denominación "Fundación COMPUTAEX" son propiedad exclusiva de la institución. Queda prohibido su uso, reproducción o distribución para fines ajenos a la actividad oficial de la Fundación.
