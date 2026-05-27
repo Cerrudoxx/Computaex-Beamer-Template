@@ -1,14 +1,16 @@
 % computaex_theme.sty
 \ProvidesPackage{computaex_theme}
 
-\usepackage[utf8]{inputenc}
-\usepackage{braket} 
-\usepackage[spanish]{babel}
-\usepackage{graphicx} 
-\usepackage{quantikz} 
-\usepackage{booktabs}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{braket} 
+\RequirePackage[spanish]{babel}
+\RequirePackage{graphicx} 
+\RequirePackage{quantikz} 
+\RequirePackage{booktabs}
+\RequirePackage{listings}
+\RequirePackage{xcolor}
 
-% Colores Corporativos
+% Colores
 \definecolor{MiColor}{HTML}{4FA392}
 \usetheme{Madrid}
 
@@ -19,10 +21,36 @@
 \setbeamercolor{titlelike}{bg=MiColor, fg=white}
 \setbeamercolor{frametitle}{bg=MiColor!90!black, fg=white} 
 
-% Limpiar interfaz
+% Estilo de código
+\definecolor{termbg}{HTML}{1E1E1E}
+\definecolor{termfg}{HTML}{D4D4D4}
+\definecolor{termblue}{HTML}{569CD6}
+\definecolor{termgreen}{HTML}{CE9178}
+\definecolor{termcomment}{HTML}{6A9955}
+
+\lstdefinestyle{terminal}{
+    backgroundcolor=\color{termbg},
+    basicstyle=\ttfamily\scriptsize\color{termfg},
+    keywordstyle=\color{termblue}\bfseries,
+    stringstyle=\color{termgreen},
+    commentstyle=\color{termcomment}\itshape,
+    language=bash,
+    morekeywords={git, sudo, apt, install, config, mkdir, cd, echo},
+    frame=single,
+    rulecolor=\color{termbg},
+    xleftmargin=0.2cm,
+    xrightmargin=0.2cm,
+    aboveskip=0.2cm,
+    belowskip=0.2cm,
+    showstringspaces=false,
+    extendedchars=true,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1
+}
+
+% Esto es para eliminar los botones de navegación de la plantilla original de beamer
 \setbeamertemplate{navigation symbols}{}
 
-% Configuración de Logos
+% Configuración de logos
 \addtobeamertemplate{title page}{
   \centering
   \includegraphics[width=6cm]{logos/COMPUTAEX_transparente-300x114.png}\par
