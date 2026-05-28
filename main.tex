@@ -13,7 +13,7 @@
 \date{\today}
 
 \begin{document}
-
+\activarfondo{Fotos_CPD/CPD_3.jpg}
 % --- PORTADA (Sin logo en la esquina para evitar duplicidad) ---
 {
 \setbeamertemplate{logo}{}
@@ -22,11 +22,15 @@
 \end{frame}
 }
 
+\desactivarfondo
 % --- ÍNDICE ---
 \begin{frame}
 \frametitle{Contenido de la Sesión}
 \tableofcontents % Genera el índice automáticamente basado en las \section
 \end{frame}
+
+% Activar fondo global a partir de aquí
+\activarfondo{Fotos_CPD/CPD_3.jpg}
 
 % =============================================================================
 \section{Introducción y Objetivos}
@@ -139,6 +143,31 @@ Para demostrar las capacidades gráficas de la plantilla, representamos el circu
 \end{frame}
 
 % ==========================================
+\section{Demostración de Código y Fondo}
+% ==========================================
+
+% Desactivar fondo para esta diapositiva y las siguientes
+\desactivarfondo
+
+\begin{frame}[fragile]
+\frametitle{Inclusión de fragmentos de código}
+Ejemplo de código Bash con resaltado de sintaxis:
+
+\vspace{0.3cm}
+\begin{lstlisting}[style=terminal]
+# Actualizar repositorios e instalar paquetes
+sudo apt update
+sudo apt install qiskit python3-pip
+
+# Clonar el repositorio del proyecto
+git clone https://github.com/usuario/proyecto.git
+cd proyecto
+echo "Instalación completada"
+\end{lstlisting}
+\end{frame}
+
+
+% ==========================================
 \section{Cierre}
 % ==========================================
 
@@ -173,7 +202,7 @@ Resumen final de la intervención:
     Empresa ficticia, 2024.
 \end{thebibliography}
 \end{frame}
-
+\activarfondo{Fotos_CPD/CPD_2.jpg}
 % --- DIAPOSITIVA FINAL ---
 \begin{frame}
 \begin{center}

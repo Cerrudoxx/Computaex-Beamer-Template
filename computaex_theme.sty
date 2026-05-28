@@ -58,3 +58,18 @@
 }{}
 
 \logo{\raisebox{0.2cm}{\includegraphics[height=0.7cm]{logos/COMPUTAEX_nuevo-300x75.png}}\hspace{0.5cm}}
+
+% Paquete y comandos para fondo difuminado/atenuado
+\RequirePackage{tikz}
+
+% Activar fondo (global)
+\newcommand{\activarfondo}[1]{
+  \usebackgroundtemplate{
+    \tikz\node[opacity=0.2, inner sep=0pt]    {\includegraphics[width=\paperwidth,height=\paperheight]{#1}}; %para cambiar opacidad
+  }
+}
+
+% Desactivar fondo (global)
+\newcommand{\desactivarfondo}{
+  \usebackgroundtemplate{}
+}
