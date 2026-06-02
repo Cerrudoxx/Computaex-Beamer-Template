@@ -6,8 +6,10 @@ Plantilla de presentaciones LaTeX (Beamer) para la Fundación COMPUTAEX.
 
 * **Formato Panorámico:** Configuración base 16:9, modificable mediante los parámetros de clase en `main.tex`.
 * **Identidad Visual:** Integración del color corporativo COMPUTAEX (`#4FA392`) y paleta derivada.
-* **Logotipos:** Posicionamiento central en la portada y reducción automática en el cuadrante inferior derecho para las diapositivas de contenido.
+* **Opciones de Personalización:** Parámetros de carga para tipografías (`fira`, `helvet`, `lmodern`), degradados (`gradient`) y transiciones automáticas (`transitions`).
+* **Logotipos Dinámicos:** Posicionamiento central en portada, reducido en contenido y opción de logo radiante en cuadrante inferior derecho.
 * **Fondos Atenuados:** Soporte integrado mediante `tikz` para establecer imágenes de fondo con opacidad del 20%.
+* **Efectos Visuales:** Comandos para marcos con sombra difuminada (`\marcosombra`).
 * **Fragmentos de Código:** Entorno `lstlisting` preconfigurado con el estilo `terminal` para código fuente y scripts.
 * **Paquetes Científicos:** Soporte nativo para:
     * Circuitos cuánticos (`quantikz`).
@@ -35,7 +37,20 @@ Plantilla de presentaciones LaTeX (Beamer) para la Fundación COMPUTAEX.
 * `computaex_theme.sty`: Archivo de estilo. Define directivas de color, tipografía, posicionamiento de elementos visuales y comandos auxiliares.
 * `logos/`: Directorio de recursos gráficos oficiales.
 
-## Guía de Formato
+## Guía de Configuración y Formato
+
+### Carga del Tema y Opciones
+El comportamiento visual y tipográfico se controla mediante los parámetros pasados al paquete en `main.tex`:
+```latex
+% Opciones tipográficas (excluyentes): fira, helvet, lmodern
+% Opciones visuales: gradient, transitions
+\usepackage[fira, gradient, transitions]{computaex_theme}
+```
+* `fira`: Activa las fuentes Fira Sans y Fira Mono (recomendado para código y pantallas).
+* `helvet`: Activa tipografía sans-serif estándar corporativa.
+* `lmodern`: Activa tipografía Latin Modern vectorial limpia.
+* `gradient`: Aplica un degradado lineal corporativo al fondo del título de cada diapositiva.
+* `transitions`: Genera automáticamente una diapositiva de color sólido de impacto con el título de la sección al usar `\section{}`.
 
 ### Secciones e Índice
 La generación del índice es automática en base a las declaraciones de sección:
@@ -51,6 +66,22 @@ Los fondos se aplican de manera global desde el punto de declaración y mantiene
 
 % Desactivar fondo para todas las diapositivas siguientes
 \desactivarfondo
+```
+
+### Gestión de Logotipos
+Alternar entre el logotipo predeterminado (cabecera inferior) y el logotipo radiante (esquina inferior derecha cortada):
+```latex
+% Sustituir el logo predeterminado por el radiante
+\activarlogoradiante
+
+% Restaurar el logo predeterminado
+\desactivarlogoradiante
+```
+
+### Marcos con Sombra
+Añadir elevación visual a imágenes o elementos mediante el comando `\marcosombra`:
+```latex
+\marcosombra{\includegraphics[width=5cm]{logos/COMPUTAEX.png}}
 ```
 
 ### Entornos Cuánticos

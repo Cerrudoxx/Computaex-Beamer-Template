@@ -1,75 +1,269 @@
+% =============================================================================
 % computaex_theme.sty
+% Archivo de estilo y configuración para la plantilla Beamer de COMPUTAEX.
+% =============================================================================
 \ProvidesPackage{computaex_theme}
 
-\RequirePackage[utf8]{inputenc}
-\RequirePackage{braket} 
-\RequirePackage[spanish]{babel}
-\RequirePackage{graphicx} 
-\RequirePackage{quantikz} 
-\RequirePackage{booktabs}
-\RequirePackage{listings}
-\RequirePackage{xcolor}
+% =============================================================================
+% 1. DEFINICIÓN DE VARIABLES LÓGICAS (INTERRUPTORES)
+% =============================================================================
+% \newif crea variables booleanas en LaTeX. Todas inician en 'false' por defecto.
+% Se utilizarán para activar o desactivar bloques de código según las opciones
+% que el usuario pase al importar el paquete (ej. \usepackage[fira]{computaex_theme}).
+\newif\if@usefira \@usefirafalse
+\newif\if@usehelvet \@usehelvetfalse
+\newif\if@uselmodern \@uselmodernfalse
+\newif\if@usetransitions \@usetransitionsfalse
+\newif\if@usegradient \@usegradientfalse
 
-% Colores
+% =============================================================================
+% 2. DECLARACIÓN DE OPCIONES DEL PAQUETE
+% =============================================================================
+% Asocia las cadenas de texto (opciones) con el cambio de estado de los booleanos.
+\DeclareOption{fira}{\@usefiratrue}
+\DeclareOption{helvet}{\@usehelvettrue}
+\DeclareOption{lmodern}{\@uselmoderntrue}
+\DeclareOption{transitions}{\@usetransitionstrue}
+\DeclareOption{gradient}{\@usegradienttrue}
+
+% \ProcessOptions ejecuta las opciones que el usuario haya especificado.
+% \relax detiene la lectura del compilador para evitar bucles.
+\ProcessOptions\relax
+
+% =============================================================================
+% 3. CARGA DE PAQUETES BASE
+% =============================================================================
+% Paquetes fundamentales para el funcionamiento de la plantilla.
+\RequirePackage[utf8]{inputenc} % Soporte para caracteres UTF-8 (tildes, eñes)
+\RequirePackage{braket}         % Notación de Dirac para mecánica cuántica
+\RequirePackage[spanish]{babel} % Traducción de términos automáticos (ej. "Índice")
+\RequirePackage{graphicx}       % Inserción y manipulación de imágenes
+\RequirePackage{quantikz}       % Renderizado de circuitos cuánticos
+\RequirePackage{booktabs}       % Tablas de calidad profesional (líneas horizontales limpias)
+\RequirePackage{listings}       % Inserción de bloques de código fuente
+\RequirePackage{xcolor}         % Definición y manipulación de colores personalizados
+\RequirePackage{tikz}           % Herramienta de dibujo vectorial avanzado
+\usetikzlibrary{shadows.blur}   % Librería de TikZ para generar sombras difuminadas
+
+% =============================================================================
+% 4. CONFIGURACIÓN TIPOGRÁFICA CONDICIONAL
+% =============================================================================
+% Verifica qué variable tipográfica es verdadera y carga la fuente correspondiente.
+\if@usefira
+  % Fira Sans / Fira Mono: Fuente moderna, altamente legible en pantallas y código.
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage[sfdefault]{FiraSans}
+  \RequirePackage{FiraMono}
+  \renewcommand{\familydefault}{\sfdefault}
+\else\if@usehelvet
+  % Helvetica: Clon sans-serif estándar y corporativo.
+  \RequirePackage{helvet}
+  \renewcommand{\familydefault}{\sfdefault}
+  \usefonttheme{professionalfonts} % Evita que Beamer sobrescriba configuraciones matemáticas
+\else\if@uselmodern
+  % Latin Modern: Fuente vectorial limpia, similar a la clásica de LaTeX pero sin pixelación.
+  \RequirePackage{lmodern}
+  \RequirePackage[T1]{fontenc}
+\fi\fi\fi
+
+% Optimizaciones microtipográficas para evitar espacios irregulares entre palabras.
+\RequirePackage{microtype}
+% Incrementa el espacio entre líneas un 15% para mejorar la legibilidad en proyecciones.
+\linespread{1.15}
+
+% =============================================================================
+% 5. CONFIGURACIÓN DEL TEMA Y COLORES BASE
+% =============================================================================
+% Definición del color corporativo primario en formato hexadecimal.
 \definecolor{MiColor}{HTML}{4FA392}
+
+% Carga del tema base 'Madrid' (cabeceras y pies de página estructurados).
 \usetheme{Madrid}
 
-\setbeamercolor{structure}{fg=MiColor}
-\setbeamercolor{palette primary}{bg=MiColor!30!white, fg=black}   
-\setbeamercolor{palette secondary}{bg=MiColor, fg=white}          
-\setbeamercolor{palette tertiary}{bg=MiColor!80!black, fg=white}  
-\setbeamercolor{titlelike}{bg=MiColor, fg=white}
-\setbeamercolor{frametitle}{bg=MiColor!90!black, fg=white} 
+% Sobrescritura de la paleta de colores del tema Madrid para aplicar la identidad corporativa.
+\setbeamercolor{structure}{fg=MiColor} % Color de viñetas y elementos estructurales
+\setbeamercolor{palette primary}{bg=MiColor!30!white, fg=black}   % Elementos terciarios (ej. autor en el pie)
+\setbeamercolor{palette secondary}{bg=MiColor, fg=white}          % Elementos secundarios (ej. título en el pie)
+\setbeamercolor{palette tertiary}{bg=MiColor!80!black, fg=white}  % Elementos primarios (ej. fecha en el pie)
+\setbeamercolor{titlelike}{bg=MiColor, fg=white}                  % Fondos de títulos de bloque y portada
+\setbeamercolor{frametitle}{bg=MiColor!90!black, fg=white}        % Fondo de la cabecera de las diapositivas
 
-% Estilo de código
-\definecolor{termbg}{HTML}{1E1E1E}
-\definecolor{termfg}{HTML}{D4D4D4}
-\definecolor{termblue}{HTML}{569CD6}
-\definecolor{termgreen}{HTML}{CE9178}
-\definecolor{termcomment}{HTML}{6A9955}
+% =============================================================================
+% 6. DEGRADADO EN ENCABEZADO (CONDICIONAL)
+% =============================================================================
+% Si el usuario activó [gradient], se sobrescribe el diseño del título de la diapositiva.
+\if@usegradient
+  \setbeamertemplate{frametitle}{
+    \nointerlineskip % Elimina el espacio blanco encima de la caja
+    % Crea una caja de color que ocupa el ancho exacto del documento
+    \begin{beamercolorbox}[wd=\paperwidth, ht=4ex, dp=1.5ex]{frametitle}
+      \begin{tikzpicture}[overlay, remember picture]
+        % Dibuja un rectángulo rellenado con un degradado lineal (de oscuro a claro)
+        \fill[left color=MiColor!90!black, right color=MiColor!20!white] (0,-1.5ex) rectangle (\paperwidth,4ex);
+      \end{tikzpicture}
+      % Posiciona el texto del título sobre el rectángulo degradado
+      \hspace{0.5cm}\usebeamerfont{frametitle}\textcolor{white}{\insertframetitle}
+    \end{beamercolorbox}
+  }
+\fi
 
+% =============================================================================
+% 7. DISEÑO DE BLOQUES (CAJAS DE INFORMACIÓN)
+% =============================================================================
+% Configura los bloques para tener esquinas redondeadas y sombra proyectada.
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% Colores para el bloque estándar (\begin{block})
+\setbeamercolor{block title}{bg=MiColor, fg=white}
+\setbeamercolor{block body}{bg=MiColor!10, fg=black}
+
+% Colores para el bloque de alerta (\begin{alertblock}) - Tono rojizo
+\setbeamercolor{block title alerted}{bg=red!70!black, fg=white}
+\setbeamercolor{block body alerted}{bg=red!10, fg=black}
+
+% Colores para el bloque de ejemplo (\begin{exampleblock}) - Tono basado en el verde de terminal
+\setbeamercolor{block title example}{bg=termcomment, fg=white}
+\setbeamercolor{block body example}{bg=termcomment!10, fg=black}
+
+% =============================================================================
+% 8. TRANSICIONES ENTRE SECCIONES (CONDICIONAL)
+% =============================================================================
+% Si se activó [transitions], se inyecta automáticamente una diapositiva
+% separadora cada vez que se usa el comando \section{}.
+\if@usetransitions
+  \AtBeginSection[]{
+    {
+      % Fondea toda la diapositiva con el color corporativo
+      \setbeamercolor{background canvas}{bg=MiColor}
+      % [plain] elimina cabeceras y pies de página; 'c' centra verticalmente
+      \begin{frame}[plain, c]
+        \begin{center}
+          % Imprime el nombre de la sección en texto gigante y blanco
+          \Huge\textcolor{white}{\textbf{\insertsection}}
+        \end{center}
+      \end{frame}
+    }
+  }
+\fi
+
+% =============================================================================
+% 9. COMANDOS GRÁFICOS ADICIONALES
+% =============================================================================
+% Comando personalizado para aplicar un marco blanco y sombra difuminada a cualquier elemento.
+\newcommand{\marcosombra}[1]{
+  \begin{tikzpicture}
+    % Aplica el nodo de TikZ rodeando el contenido (#1) con la sombra especificada
+    \node[blur shadow={shadow blur steps=5}, fill=white, inner sep=2pt] {#1};
+  \end{tikzpicture}
+}
+
+% =============================================================================
+% 10. ESTILOS DE ENTORNO DE CÓDIGO (LSTLISTING)
+% =============================================================================
+% Paleta de colores inspirada en editores de código modernos (ej. VS Code, tema oscuro).
+\definecolor{termbg}{HTML}{1E1E1E}       % Fondo gris muy oscuro
+\definecolor{termfg}{HTML}{D4D4D4}       % Texto gris claro
+\definecolor{termblue}{HTML}{569CD6}     % Palabras clave en azul
+\definecolor{termgreen}{HTML}{CE9178}    % Cadenas de texto en naranja/verde
+\definecolor{termcomment}{HTML}{6A9955}  % Comentarios en verde oscuro
+
+% Definición del estilo 'terminal' para el paquete 'listings'.
 \lstdefinestyle{terminal}{
     backgroundcolor=\color{termbg},
-    basicstyle=\ttfamily\scriptsize\color{termfg},
+    basicstyle=\ttfamily\scriptsize\color{termfg}, % Usa la fuente monoespaciada actual
     keywordstyle=\color{termblue}\bfseries,
     stringstyle=\color{termgreen},
     commentstyle=\color{termcomment}\itshape,
-    language=bash,
-    morekeywords={git, sudo, apt, install, config, mkdir, cd, echo},
-    frame=single,
-    rulecolor=\color{termbg},
-    xleftmargin=0.2cm,
-    xrightmargin=0.2cm,
-    aboveskip=0.2cm,
-    belowskip=0.2cm,
-    showstringspaces=false,
-    extendedchars=true,
+    language=bash, % Sintaxis base asimilada a Bash
+    morekeywords={git, sudo, apt, install, config, mkdir, cd, echo}, % Palabras clave extra
+    frame=single, % Recuadro simple alrededor del código
+    rulecolor=\color{termbg}, % Oculta el color de la línea del recuadro fundiéndola con el fondo
+    xleftmargin=0.2cm, xrightmargin=0.2cm, % Márgenes laterales
+    aboveskip=0.2cm, belowskip=0.2cm,      % Márgenes superior/inferior
+    showstringspaces=false,                % No mostrar símbolo de espacio en cadenas
+    extendedchars=true,                    % Soporte para caracteres extendidos
+    % Mapeo de caracteres especiales (tildes, eñes) a su representación en LaTeX
+    % necesario porque 'listings' a veces falla interpretando UTF-8 directamente.
     literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1
 }
 
-% Esto es para eliminar los botones de navegación de la plantilla original de beamer
+% =============================================================================
+% 11. CONFIGURACIÓN DE HIPERVÍNCULOS
+% =============================================================================
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,  % Elimina los feos recuadros alrededor de los enlaces
+    linkcolor=black,  % Enlaces internos (índice) en negro
+    filecolor=MiColor,% Enlaces a archivos locales en color corporativo
+    urlcolor=MiColor, % Enlaces web en color corporativo
+    citecolor=MiColor % Referencias bibliográficas en color corporativo
+}
+
+% =============================================================================
+% 12. CONFIGURACIÓN DE LA INTERFAZ BEAMER
+% =============================================================================
+% Elimina la barra de navegación predeterminada (iconos en la esquina inferior derecha)
 \setbeamertemplate{navigation symbols}{}
 
-% Configuración de logos
+% =============================================================================
+% 13. CONFIGURACIÓN DE LOGOTIPOS PREDETERMINADOS
+% =============================================================================
+% Logo grande centrado para la diapositiva de portada (titlepage)
 \addtobeamertemplate{title page}{
   \centering
-  \includegraphics[width=6cm]{logos/COMPUTAEX_transparente-300x114.png}\par
-  \vspace{0.5cm} 
+  \includegraphics[width=6cm]{logos/COMPUTAEX.png}\par
+  \vspace{0.3cm} 
 }{}
 
+% Logo reducido para la esquina inferior derecha del resto de diapositivas.
+% Se eleva (\raisebox) y se ajusta el margen (\hspace) para evitar colisión con el número de página.
 \logo{\raisebox{0.2cm}{\includegraphics[height=0.7cm]{logos/COMPUTAEX_nuevo-300x75.png}}\hspace{0.5cm}}
 
-% Paquete y comandos para fondo difuminado/atenuado
-\RequirePackage{tikz}
-
-% Activar fondo (global)
+% =============================================================================
+% 14. COMANDOS PARA FONDO DE DIAPOSITIVA ATENUADO
+% =============================================================================
+% Comando para establecer una imagen a pantalla completa con 20% de opacidad.
 \newcommand{\activarfondo}[1]{
   \usebackgroundtemplate{
-    \tikz\node[opacity=0.2, inner sep=0pt]    {\includegraphics[width=\paperwidth,height=\paperheight]{#1}}; %para cambiar opacidad
+    % Se usa un nodo TikZ para forzar la escala y aplicar la transparencia (opacity).
+    \tikz\node[opacity=0.2, inner sep=0pt] {\includegraphics[width=\paperwidth,height=\paperheight]{#1}};
   }
 }
 
-% Desactivar fondo (global)
+% Comando para limpiar el fondo (restaura el lienzo blanco).
 \newcommand{\desactivarfondo}{
   \usebackgroundtemplate{}
+}
+
+% =============================================================================
+% 15. COMANDOS PARA LOGOTIPO RADIANTE EN LA ESQUINA
+% =============================================================================
+% Crea una variable para controlar la visibilidad del logo cortado en la esquina.
+\newif\iflogoradiante
+\logoradiantefalse
+
+% Al activar, cambia el estado a verdadero y oculta el logo estándar predeterminado.
+\newcommand{\activarlogoradiante}{
+  \logoradiantetrue
+  \setbeamertemplate{logo}{} % Oculta el logo estándar definido en la sección 13
+}
+
+% Al desactivar, cambia a falso y restaura el logo estándar predeterminado.
+\newcommand{\desactivarlogoradiante}{
+  \logoradiantefalse
+  \setbeamertemplate{logo}{\raisebox{0.2cm}{\includegraphics[height=0.7cm]{logos/COMPUTAEX_nuevo-300x75.png}}\hspace{0.5cm}}
+}
+
+% Inyección en la capa de fondo (background). 
+% Se ejecuta en cada diapositiva, pero solo renderiza si \iflogoradiante es verdadero.
+\addtobeamertemplate{background}{}{
+  \iflogoradiante
+    % [remember picture, overlay] permite posicionamiento absoluto respecto a los bordes de la página.
+    \begin{tikzpicture}[remember picture, overlay]
+      % current page.south east representa la esquina inferior derecha de la diapositiva.
+      % Se ancla el CENTRO geométrico de la imagen exactamente en esa esquina.
+      % Esto causa que solo el cuadrante superior izquierdo de la imagen sea visible en la pantalla.
+      \node[anchor=center, inner sep=0pt] at (current page.south east) {\includegraphics[width=5cm]{"logos/COMPUTAEX - 1.png"}};
+    \end{tikzpicture}
+  \fi
 }
